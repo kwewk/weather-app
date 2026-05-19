@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather App</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<main class="container">
+
+    <section class="search-section card">
+        <form class="search-form" id="searchForm">
+            <input
+                    type="text"
+                    id="cityInput"
+                    class="search-input"
+                    placeholder="Enter city name..."
+                    autocomplete="off"
+            />
+            <button type="submit" class="search-btn" aria-label="Search">Search</button>
+            <button type="button" class="geo-btn" id="geoBtn" aria-label="My location">Geo</button>
+            <button type="button" class="refresh-btn" id="refreshBtn" aria-label="Refresh">Refresh</button>
+        </form>
+    </section>
+
+    <div id="message" class="message hidden"></div>
+
+    <section id="currentWeather" class="current-weather card hidden">
+        <div class="current-header">
+            <div>
+                <h1 class="city-name" id="cityName">—</h1>
+                <p class="current-date" id="currentDate">—</p>
+            </div>
+            <div class="weather-icon-large" id="currentIcon">☀️</div>
+        </div>
+
+        <div class="current-temp">
+            <span class="temp-value" id="tempValue">—</span>
+            <span class="temp-unit">°C</span>
+        </div>
+
+        <p class="weather-description" id="weatherDescription">—</p>
+
+        <div class="current-details">
+            <div class="detail-item">
+                <span class="detail-label">Feels like</span>
+                <span class="detail-value" id="feelsLike">—°</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Humidity</span>
+                <span class="detail-value" id="humidity">—%</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Wind</span>
+                <span class="detail-value" id="windSpeed">— m/s</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Pressure</span>
+                <span class="detail-value" id="pressure">— hPa</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="forecast" class="forecast card hidden">
+        <h2 class="forecast-title">5-day forecast</h2>
+        <div class="forecast-list" id="forecastList"></div>
+    </section>
+
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
