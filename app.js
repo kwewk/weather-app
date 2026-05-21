@@ -18,6 +18,7 @@ const pressureEl = document.getElementById('pressure');
 const forecastList = document.getElementById('forecastList');
 
 let lastLocation = null;
+const STORAGE_KEY = "currentLocation";
 
 const codes = {
     0:  ['clear sky', '☀️', 'sunny'],
@@ -146,6 +147,7 @@ async function loadByCoords(lat, lon, name) {
         renderCurrent(data, name);
         renderForecast(data);
         lastLocation = {lat, lon, name};
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(lastLocation));
     } catch (err) {
         console.error(err);
         showMsg(err.message || 'Something went wrong', true);
@@ -212,4 +214,17 @@ geoBtn.addEventListener('click', useGeo);
 
 refreshBtn.addEventListener('click', refreshWeather);
 
-showMsg('A simple pet project "Weather App" by kwewk')
+const sk = localStorage.getItem(STORAGE_KEY);
+
+if (sk !== null) {
+    try {
+        const obj = JSON.parse(sk);
+        loadByCoords(obj.lat, obj.lon, obj.name);
+    }
+    catch (err) {
+        console.error(err);
+        showMsg('Saved location is corrupted, please search again', true);
+    }
+} else {
+    showMsg('A simple pet project "Weather App" by kwewk')
+}
