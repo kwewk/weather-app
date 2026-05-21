@@ -97,6 +97,26 @@ async function getWeather(lat, lon) {
     return res.json();
 }
 
+async function reverseGeocoding (lat, lon) {
+    const params = new URLSearchParams({
+        latitude: lat,
+        longitude: lon,
+    })
+    try {
+        const res = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?${params}`);
+        if (!res.ok) throw new Error(`Reverse geocoding failed: ${res.status}`);
+        const data = await res.json();
+        const cityOrLocality = data.city || data.locality || '';
+        const country = data.countryName || '';
+        const label = [cityOrLocality, country].filter(Boolean).join(', ');
+        return label;
+    }
+    catch (err) {
+        console.error(err);
+        return 'Your location';
+    }
+}
+
 function renderCurrent(data, name) {
     const cur = data.current;
     const code = cur.weather_code;
@@ -182,7 +202,8 @@ function useGeo() {
     navigator.geolocation.getCurrentPosition(
         async (pos) => {
             const { latitude, longitude } = pos.coords;
-            await loadByCoords(latitude, longitude, 'Your location');
+            let reversedLocation = await reverseGeocoding(latitude, longitude);
+            await loadByCoords(latitude, longitude, reversedLocation);
         },
         (err) => {
             console.error(err);
