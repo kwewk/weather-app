@@ -15,6 +15,7 @@ Weather Application for tracking current weather in searched city. Built for pra
 - **CSS** - Flexbox, Grid, CSS-variables, responsive design (`auto-fit` / `minmax`)
 - **JavaScript** - async/await, Fetch API, Geolocation API
 - **Open-Meteo API** - free API no-key needed
+- **BigDataCloud API** - free API no-key needed
 
 ## What was implemented?
 - work with asynchronous code using `async/await` and `try/catch` for error handling
@@ -23,6 +24,7 @@ Weather Application for tracking current weather in searched city. Built for pra
 - keeping application state in a variable (last location) to power the refresh button
 - date formatting with locale support
 - responsive layout
+- reverse geocoding
 
 ## How to launch?
 ```bash
