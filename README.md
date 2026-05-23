@@ -41,7 +41,7 @@ Then open `http://localhost:8000` in the browser.
 
 ## Plans for future
 - [ ] dynamic background that changes with weather conditions
-- [ ] save last 5 searches to localStorage
+- [x] save last 5 searches to localStorage
 - [ ] favorite cities list
 - [ ] temperature chart using Chart.js
 - [ ] °C / °F toggle
