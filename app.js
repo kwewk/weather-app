@@ -18,7 +18,8 @@ const pressureEl = document.getElementById('pressure');
 const forecastList = document.getElementById('forecastList');
 
 let lastLocation = null;
-const STORAGE_KEY = "currentLocation";
+const STORAGE_KEY = "recentLocations";
+const WELCOME_MESSAGE = 'A simple pet project "Weather App" by kwewk';
 
 const codes = {
     0:  ['clear sky', '☀️', 'sunny'],
@@ -159,6 +160,17 @@ function renderForecast(data) {
     forecastBlock.classList.remove('hidden');
 }
 
+function addToHistory(lastLocation) {
+    const storage = localStorage.getItem(STORAGE_KEY);
+    let current = storage ? JSON.parse(storage) : [];
+    current = current.filter(item => item.name !== lastLocation.name);
+    current.unshift(lastLocation);
+    if (current.length > 5) {
+        current.length = 5;
+    }
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(current));
+}
+
 async function loadByCoords(lat, lon, name) {
     try {
         showMsg('Loading weather...');
@@ -167,7 +179,7 @@ async function loadByCoords(lat, lon, name) {
         renderCurrent(data, name);
         renderForecast(data);
         lastLocation = {lat, lon, name};
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(lastLocation));
+        addToHistory(lastLocation);
     } catch (err) {
         console.error(err);
         showMsg(err.message || 'Something went wrong', true);
@@ -239,13 +251,17 @@ const sk = localStorage.getItem(STORAGE_KEY);
 
 if (sk !== null) {
     try {
-        const obj = JSON.parse(sk);
-        loadByCoords(obj.lat, obj.lon, obj.name);
+        const history = JSON.parse(sk);
+        if (history[0] !== undefined) {
+            loadByCoords(history[0].lat, history[0].lon, history[0].name);
+        } else {
+            showMsg(WELCOME_MESSAGE)
+        }
     }
     catch (err) {
         console.error(err);
         showMsg('Saved location is corrupted, please search again', true);
     }
 } else {
-    showMsg('A simple pet project "Weather App" by kwewk')
+    showMsg(WELCOME_MESSAGE)
 }
