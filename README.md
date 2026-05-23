@@ -2,6 +2,8 @@
 
 Weather Application for tracking current weather in searched city. Built for practice and learning.
 
+**Live demo:** https://kwewk.github.io/weather-app/
+
 ## Features
 - weather search by city name
 - auto-detect location via browser geolocation
@@ -19,12 +21,12 @@ Weather Application for tracking current weather in searched city. Built for pra
 
 ## What was implemented?
 - work with asynchronous code using `async/await` and `try/catch` for error handling
-- making request to two different API endpoints with sequential processing
+- working with multiple API endpoints (geocoding, weather forecast, reverse geocoding)
 - work with the browser's geolocation API
 - keeping application state in a variable (last location) to power the refresh button
 - date formatting with locale support
 - responsive layout
-- reverse geocoding
+- working with a secondary API for reverse geocoding (coordinates → readable city name)
 
 ## How to launch?
 ```bash
